@@ -1,30 +1,33 @@
-# How to GraphQL 🎓
+# GraphQL на примерах 🎓
 
-[How to GraphQL](https://www.howtographql.com) is a fullstack tutorial website to learn all about GraphQL! It was built by [Graphcool](https://www.graph.cool) and many amazing contributors. All content on the site is completely free and open-source.
+> Это перевод содержимого https://github.com/howtographql/howtographql
+
+> [How to GraphQL](https://www.howtographql.com/)
+
+[GraphQL на примерах](https://www.howtographql.com) — фулстек обучающий сайт для изучения всего, что касается GraphQL! Он создан [Graphcool](https://www.graph.cool) и многими другими контрибьюторами. Весь контент на сайте полностью бесплатный и доступен в открытом доступе.
 
 [![](http://i.imgur.com/67oYe9q.png)](https://www.howtographql.com)
 
+## Контент
 
-## Content
-
-The content for all tutorials is located in the  [`/content`](https://github.com/howtographql/howtographql/tree/master/content) directory. Here is an overview of all the tutorials that are available at the moment:
+Содержимое всех обучающих статей хранится в каталоге  [`/content`](https://github.com/howtographql/howtographql/tree/master/content). Ниже краткий обзор всех доступных на данный момент уроков: 
 
 #### GraphQL
 
-- Fundamentals of GraphQL
-- Advanced GraphQL
+- Основы GraphQL
+- Продвинутое использование GraphQL
 
-#### Frontend
+#### Фронтенд
 
 - React & Apollo
 - React & Relay
 - Vue & Apollo
 - Ember & Apollo
-- Expo & Apollo (Coming Soon)
-- Angular & Apollo (Coming Soon) 
-- VulcanJS (Coming Soon)
+- Expo & Apollo (скоро)
+- Angular & Apollo (скоро) 
+- VulcanJS (скоро)
 
-#### Backend
+#### Бэкенд
 
 - Prisma
 - graphql-js / Javascript
@@ -32,17 +35,19 @@ The content for all tutorials is located in the  [`/content`](https://github.com
 - graphql-ruby / Ruby
 - graphql-java / Java 
 - Graphene / Python
-- Sangria / Scala (Coming Soon)
-- graphql-go / Go (Coming Soon)
+- Sangria / Scala (скоро)
+- graphql-go / Go (скоро)
 
 
-## Contributions / Fixes
+## Участие в проекте / Исправления
 
-As the whole project is open-source, you're more than welcome to fix typos and other small issues yourself and create a PR for the fix. If you want to contribute a whole tutorial track, please [get in touch](mailto:nikolas@graph.cool). 
+Поскольку весь проект с открытым исходным кодом, мы только приветствуем исправление опечаток и других мелких проблем и создание PR для исправления. Если вы хотите внести свой вклад в учебный курс, пожалуйста, [свяжитесь с нами](mailto:nikolas@graph.cool). 
 
-## Installation & Running locally
+## Установка & Запуск локально
 
 You can run a local instance of How to GraphQL by executing the following commands in a terminal:
+
+Вы можете запустить локально у себя проект "GraphQL на примерах", выполнив следующие команды в терминале:
 
 ```sh
 git clone git@github.com:howtographql/howtographql.git
@@ -51,4 +56,4 @@ yarn install
 yarn start # http://localhost:8000/ 
 ```
 
-> Note: If you're using Node 8, you might need to invoke `npm install -g node-gyp` before you're starting the app. More info [here](https://github.com/gatsbyjs/gatsby/issues/1754). 
+> Примечание: если вы используете Node 8, вам может потребоваться выполнить `npm install -g node-gyp` прежде чем запустить приложение. Больше информации вы можете получить [здесь](https://github.com/gatsbyjs/gatsby/issues/1754). 
