@@ -4,7 +4,7 @@
 
 > [How to GraphQL](https://www.howtographql.com/)
 
-[GraphQL на примерах](https://www.howtographql.com) — фулстек обучающий сайт для изучения всего, что касается GraphQL! Он создан [Graphcool](https://www.graph.cool) и многими другими контрибьюторами. Весь контент на сайте полностью бесплатный и доступен в открытом доступе.
+[GraphQL на примерах](https://ru.howtographql.com) — фулстек обучающий сайт для изучения всего, что касается GraphQL! Он создан [Graphcool](https://www.graph.cool) и многими другими контрибьюторами. Весь контент на сайте полностью бесплатный и доступен в открытом доступе.
 
 [![](http://i.imgur.com/67oYe9q.png)](https://www.howtographql.com)
 
