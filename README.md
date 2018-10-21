@@ -45,8 +45,6 @@
 
 ## Установка & Запуск локально
 
-You can run a local instance of How to GraphQL by executing the following commands in a terminal:
-
 Вы можете запустить локально у себя проект "GraphQL на примерах", выполнив следующие команды в терминале:
 
 ```sh
