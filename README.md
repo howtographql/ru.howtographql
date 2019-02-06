@@ -2,9 +2,7 @@
 
 > Это перевод содержимого https://github.com/howtographql/howtographql
 
-> [How to GraphQL](https://www.howtographql.com/)
-
-[GraphQL на примерах](https://ru.howtographql.com) — фулстек обучающий сайт для изучения всего, что касается GraphQL! Он создан [Graphcool](https://www.graph.cool) и многими другими контрибьюторами. Весь контент на сайте полностью бесплатный и доступен в открытом доступе.
+[GraphQL на примерах](https://ru.howtographql.com) — обучающий сайт по фулстек-разработке, связанной с GraphQL! Он создан [Prisma](https://www.prisma.io) и многими другими участниками. Весь контент на сайте полностью бесплатный и доступен в открытом доступе.
 
 [![](http://i.imgur.com/67oYe9q.png)](https://www.howtographql.com)
 
@@ -30,28 +28,28 @@
 #### Бэкенд
 
 - Prisma
-- graphql-js / Javascript
+- graphql-js / JavaScript
 - Absinthe / Elixir
 - graphql-ruby / Ruby
-- graphql-java / Java 
+- graphql-java / Java
 - Graphene / Python
 - Sangria / Scala (скоро)
 - graphql-go / Go (скоро)
 
 
-## Участие в проекте / Исправления
+## Участие в проекте / исправления
 
-Поскольку весь проект с открытым исходным кодом, мы только приветствуем исправление опечаток и других мелких проблем и создание PR для исправления. Если вы хотите внести свой вклад в учебный курс, пожалуйста, [свяжитесь с нами](mailto:nikolas@graph.cool). 
+Поскольку весь проект с открытым исходным кодом, мы только приветствуем исправление опечаток и других небольших проблем и создание PR для исправления. Если вы хотите внести свой вклад, пожалуйста, [свяжитесь с нами](mailto:burk@prisma.io). 
 
-## Установка & Запуск локально
+## Установка и локальный запуск
 
 Вы можете запустить локально у себя проект "GraphQL на примерах", выполнив следующие команды в терминале:
 
 ```sh
-git clone git@github.com:howtographql/howtographql.git
-cd howtographql
+git clone git@github.com:howtographql/ru.howtographql.git
+cd ru.howtographql
 yarn install
-yarn start # http://localhost:8000/ 
+yarn start # http://localhost:8000/
 ```
 
-> Примечание: если вы используете Node 8, вам может потребоваться выполнить `npm install -g node-gyp` прежде чем запустить приложение. Больше информации вы можете получить [здесь](https://github.com/gatsbyjs/gatsby/issues/1754). 
+> Примечание: если вы используете Node 8, может потребоваться выполнить `npm install -g node-gyp` прежде чем запустить приложение. Больше информации вы можете получить [здесь](https://github.com/gatsbyjs/gatsby/issues/1754). 

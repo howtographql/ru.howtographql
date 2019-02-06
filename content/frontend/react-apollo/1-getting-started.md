@@ -63,7 +63,7 @@ This will open a browser and navigate to `http://localhost:3000` where the app i
 
 To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
 
-`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in `index.js` accordingly:
+`App.js` is a component, so move it into `components`. `App.css` and `index.css` contain styles, so move them into `styles`. You also need to change the references to these files in both `index.js` and `App.js` accordingly:
 
 </Instruction>
 
@@ -72,6 +72,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
+```
+
+```js{2}(path=".../hackernews-react-apollo/src/components/App.js")
+import React, { Component } from 'react';
+import logo from '../logo.svg';
+import '../styles/App.css';
 ```
 
 Your project structure should now look as follows:
@@ -91,7 +97,7 @@ Your project structure should now look as follows:
 │   │   └── App.js
 │   ├── index.js
 │   ├── logo.svg
-│   ├── registerServiceWorker.js
+│   ├── serviceWorker.js
 │   └── styles
 │       ├── App.css
 │       └── index.css
@@ -175,21 +181,22 @@ input {
 Next, you need to pull in the functionality of Apollo Client (and its React bindings) which comes in several packages:
 
 ```bash(path=".../hackernews-react-apollo")
-yarn add apollo-client-preset react-apollo graphql-tag graphql
+yarn add apollo-boost react-apollo graphql
 ```
 
 </Instruction>
 
 Here's an overview of the packages you just installed:
 
-- [`apollo-client-preset`](https://www.npmjs.com/package/apollo-client-preset) offers some convenience by bundling several packages you need when working with Apollo Client:
-  - `apollo-client`
-  - `apollo-cache-inmemory`
-  - `apollo-link`
-  - `apollo-link-http`
+- [`apollo-boost`](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) offers some convenience by bundling several packages you need when working with Apollo Client:
+  - `apollo-client`: Where all the magic happens
+  - `apollo-cache-inmemory`: Our recommended cache
+  - `apollo-link-http`: An Apollo Link for remote data fetching
+  - `apollo-link-error`: An Apollo Link for error handling
+  - `apollo-link-state`: An Apollo Link for local state management
+  - `graphql-tag`: Exports the `gql` function for your queries & mutations
 - [`react-apollo`](https://github.com/apollographql/react-apollo) contains the bindings to use Apollo Client with React.
-- [`graphql-tag`](https://github.com/apollographql/graphql-tag) is a GraphQL parser. Every GraphQL operation you hand over to Apollo Client will have to be parsed by the `gql` function.
-- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well. 
+- [`graphql`](https://github.com/graphql/graphql-js) contains Facebook's reference implementation of GraphQL - Apollo Client uses some of its functionality as well.
 
 That's it, you're ready to write some code! 🚀
 
@@ -203,35 +210,33 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 Open `src/index.js` and replace the contents with the following:
 
-```js{3-4,7-10,13,16-19,23-25}(path=".../hackernews-react-apollo/src/index.js")
+```js{6-9,11-13,15-18,21-23}(path=".../hackernews-react-apollo/src/index.js")
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './components/App'
-import registerServiceWorker from './registerServiceWorker'
-// 1
+import * as serviceWorker from './serviceWorker';
 import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
+import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-// 2
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
+const httpLink = createHttpLink({
+  uri: 'http://localhost:4000'
+})
 
-// 3
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache()
 })
 
-// 4
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
-  </ApolloProvider>
-  , document.getElementById('root')
+  </ApolloProvider>,
+  document.getElementById('root')
 )
-registerServiceWorker()
+serviceWorker.unregister();
 ```
 
 </Instruction>
@@ -240,8 +245,8 @@ registerServiceWorker()
 
 Let's try to understand what's going on in that code snippet:
 
-1. You're importing the required dependencies from the installed npm packages.
-1. Here you create the `HttpLink` that will connect your `ApolloClient` instance with the GraphQL API; your GraphQL server will be running on `http://localhost:4000`.
+1. You're importing the required dependencies from the installed packages.
+1. Here you create the `httpLink` that will connect your `ApolloClient` instance with the GraphQL API, your GraphQL server will be running on `http://localhost:4000`.
 1. Now you instantiate `ApolloClient` by passing in the `httpLink` and a new instance of an `InMemoryCache`.
 1. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
@@ -375,42 +380,22 @@ To deploy the service all you need to do is install the server's dependencies an
 In your terminal, navigate to the `server` directory and execute the following commands:
 
 ```sh(path=".../hackernews-react-apollo/server")
+cd server
 yarn install
 yarn prisma deploy
 ```
 
 </Instruction>
 
-Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `npm install -g prisma`). In that case, you can simply run `prisma deploy`.
+Note that you can also omit `yarn prisma` in the above command if you have the `prisma` CLI installed globally on your machine (which you can do with `yarn global add prisma`). In that case, you can simply run `prisma deploy`.
 
 <Instruction>
 
-When prompted where (i.e. to which cluster) you want to deploy your service, choose any of the development clusters, e.g. `public-us1` or `public-eu1`. (If you have Docker installed, you can also deploy locally.)
+When prompted where you want to set/deploy your service, select `Demo server` (it requires login, you could sign in with your GitHub account), then choose any of the development clusters, e.g. `demo-us1` or `demo-eu1`. (If you have Docker installed, you can also deploy locally.)
 
 </Instruction>
 
-<Instruction>
-
-From the output of the `deploy` command, copy the `HTTP` endpoint and paste it into `server/src/index.js`, replacing the current placeholder `__PRISMA_ENDPOINT__`:
-
-```js(path=".../hackernews-react-apollo/server/src/index.js")
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  context: req => ({
-    ...req,
-    db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: '__PRISMA_ENDPOINT__',
-      secret: 'mysecret123',
-    }),
-  }),
-})
-```
-
-</Instruction>
-
-> **Note**: If you ever lose the endpoint, you can get access to it again by running `yarn prisma info`.
+> **Note**: Once the command has finished running, the CLI writes the endpoint for the Prisma API to your prisma.yml. It will look similar to this: https://eu1.prisma.sh/john-doe/hackernews-node/dev.
 
 #### Exploring the server
 
@@ -421,12 +406,12 @@ With the proper Prisma endpoint in place, you can now explore the server!
 Navigate into the `server` directory and run the following commands to start the server:
 
 ```bash(path=".../hackernews-react-apollo/server")
-yarn dev
+yarn start
 ```
 
 </Instruction>
 
-The `yarn dev` executes the `dev` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API. Note that if you only want to start the server without opening a Playground, you can do so by running `yarn start`.
+The `yarn start` executes the `start` script defined in `package.json`. The script first starts the server (which is then running on `http://localhost:4000`) and then opens up a [GraphQL Playground](https://github.com/graphcool/graphql-playground) for you to explore and work with the API.
 
 ![](https://imgur.com/k2I7NJn.png)
 

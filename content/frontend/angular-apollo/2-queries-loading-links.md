@@ -54,12 +54,11 @@ export class LinkItemComponent implements OnInit {
 <Instruction>
 
 Add the following code in `link-item.component.html`:
-  
+
 ```html(path=".../hackernews-angular-apollo/src/app/link-item/link-item.component.html")
-
 <div>{{link.description}} ({{link.url}})</div>
-
 ```
+
 </Instruction>
 
 Note, we will be writing all our typings in a `./src/app/types.ts` file and merely importing these types into components as needed.
@@ -102,12 +101,12 @@ export class LinkListComponent implements OnInit {
     id: '1',
     description: 'The Coolest GraphQL Backend 😎',
     url: 'https://www.graph.cool',
-    createAt: '2018-02-08T16:54:37.000Z',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }, {
     id: '2',
     description: 'The Best GraphQL Client',
     url: 'http://dev.apollodata.com/'
-    createAt: '2018-02-08T16:54:37.000Z',
+    createdAt: '2018-02-08T16:54:37.000Z',
   }];
 
   constructor() {
@@ -121,12 +120,12 @@ export class LinkListComponent implements OnInit {
 </Instruction>
 
 <Instruction>
+
 Then, add the following code in `link-list.component.html`:
 
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
-<hn-link-item *ngFor="let link of linksToRender"
-          [link]="link">
+<hn-link-item *ngFor="let link of linksToRender" [link]="link">
 </hn-link-item>
 
 ```
@@ -170,6 +169,7 @@ export class AppModule {
 ```
 </Instruction>
 <Instruction>
+
 Then, open `app.component.html` and replace the current contents with the following:
 
 ```html(path=".../hackernews-angular-apollo/src/app/app.component.html")
@@ -271,8 +271,7 @@ Open up `src/app/link-list/link-list.component.html`, update the HTML template t
 ```html(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.html")
 
 <h4 *ngIf="loading">Loading...</h4>
-<hn-link-item *ngFor="let link of allLinks"
-          [link]="link">
+<hn-link-item *ngFor="let link of allLinks" [link]="link">
 </hn-link-item>
 
 
@@ -280,6 +279,7 @@ Open up `src/app/link-list/link-list.component.html`, update the HTML template t
 </Instruction>
 
 <Instruction>
+
 Then, open up `src/app/link-list/link-list.component.ts`, import `ALL_LINKS_QUERY`, remove the hard-coded `linksToRender`, and inject the `Apollo` service. Your `LinkListComponent` component should now look like this:
 
 ```ts{5-6,17-18,23-25,27-28}(path=".../hackernews-angular-apollo/src/app/link-list/link-list.component.ts")
@@ -326,10 +326,10 @@ export class LinkListComponent implements OnInit {
 What's going on here?
 
 1. You import the `ALL_LINKS_QUERY` which you just created
-2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `false`. This will be set to false once data loads.
+2. Next, you initialize the `allLinks` data property to an empty array and `loading` to `true`. This will be set to false once data loads.
 3. Now you inject an `Apollo` service to your component
 4. You call the `query` method to it ( you can also use another method named `watchQuery`). This method requires a `query, ` and you pass it the `ALL_LINKS_QUERY`. As you can see, there is a new property, `valueChanges`. To watch results you have to subscribe to `valueChanges` property.
 5. The `query` method gives back a observable where we subscribe to get the response that contains a `data` property with `loading` set to `true`  as long as the request is still ongoing and the response hasn't been received and `allLinks` which is the actual data that was received from the server.
 
-That's it! If you ran `npm start or yarn start` earlier, you should see your UI update and show the two links.
+That's it! If you ran `npm start` or `yarn start` earlier, you should see your UI update and show the two links.
 
